@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="description" content="A description of the page">
+    <meta name="keywords" content="Біографія">
+    <title>Псюк О.М. ІА-91 Лаб6 Вар6</title>
+</head>
+<body>
+    <h1>Users(update page for new users)</h1>
+<ul id="users"></ul>
+<script>
+function createNode(element) {
+    return document.createElement(element);
+}
+
+function append(parent, el) {
+  return parent.appendChild(el);
+}
+
+const ul = document.getElementById('users');
+const url = 'https://randomuser.me/api/?results=5';
+
+fetch(url)
+.then((resp) => resp.json())
+.then(function(data) {
+  let authors = data.results;
+  return authors.map(function(user) {
+    let li = createNode('li');
+    let img = createNode('img');
+    let span = createNode('span');
+    img.src = user.picture.large;
+    span.innerHTML = 
+    `Name:${user.name.first} ${user.name.last}, 
+    City: ${user.location.city}, 
+    Country: ${user.location.country}, 
+    Postcode: ${user.location.postcode}`;
+    append(li, img);
+    append(li, span);
+    append(ul, li);
+  })
+})
+.catch(function(error) {
+  console.log(error);
+});
+</script>
+</body>
+</html>
